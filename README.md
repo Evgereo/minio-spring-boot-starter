@@ -1,0 +1,1 @@
+# minio-spring-boot-starter
