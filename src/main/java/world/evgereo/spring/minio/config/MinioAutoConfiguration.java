@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import world.evgereo.spring.minio.config.properties.MinioProperties;
 import world.evgereo.spring.minio.service.MinioService;
 import world.evgereo.spring.minio.service.impl.MinioServiceImpl;
@@ -15,6 +16,7 @@ import world.evgereo.spring.minio.support.MinioRequestUtils;
 
 @Slf4j
 @AutoConfiguration
+@Import(MessageSourceConfiguration.class)
 @EnableConfigurationProperties(MinioProperties.class)
 public class MinioAutoConfiguration {
 
@@ -38,8 +40,9 @@ public class MinioAutoConfiguration {
 
     @SneakyThrows
     private void configureMinio(MinioProperties minioProperties, MinioClient minioClient) {
-        var bucketName = minioProperties.getBucket().getName();
-        if (bucketName != null) {
+        log.debug("Configuring minio...");
+        if (minioProperties.getBucket() != null) {
+            var bucketName = minioProperties.getBucket().getName();
             var region = minioProperties.getRegion();
             if (!minioClient.bucketExists(MinioRequestUtils.buildBucketExistsRequest(bucketName, region))) {
                 if (minioProperties.getBucket().isCreate()) {

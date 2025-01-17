@@ -1,6 +1,8 @@
 package world.evgereo.spring.minio.config.properties;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,29 +24,37 @@ public class MinioProperties {
 
     private final String region;
 
-    private final Bucket bucket = new Bucket();
+    private final Bucket bucket;
 
     /**
      * Unsupported
      */
-    private final Repositories repositories = new Repositories();
+    private final Repositories repositories;
 
-    private final Duration connectTimeout = Duration.ofSeconds(10); //todo not work
+    @NotNull
+    private final Duration connectTimeout = Duration.ofSeconds(10);
 
+    @NotNull
     private final Duration writeTimeout = Duration.ofSeconds(60);
 
+    @NotNull
     private final Duration readTimeout = Duration.ofSeconds(30);
 
     @Getter
     @AllArgsConstructor
     public static class Repositories {
+
         private final boolean enabled = false;
     }
 
     @Getter
     @AllArgsConstructor
     public static class Bucket {
-        private final String name = null;
+
+        @NotBlank
+        @Size(min = 3)
+        private final String name;
+
         private final boolean create = false;
     }
 }
