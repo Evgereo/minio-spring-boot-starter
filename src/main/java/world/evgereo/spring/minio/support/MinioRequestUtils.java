@@ -2,7 +2,6 @@ package world.evgereo.spring.minio.support;
 
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -10,16 +9,16 @@ import lombok.NoArgsConstructor;
 public final class MinioRequestUtils {
 
     public static BucketExistsArgs buildBucketExistsRequest(String bucketName, String region) {
-        var agrsBuilder = BucketExistsArgs.builder()
-                .bucket(bucketName);
-        Optional.ofNullable(region).ifPresent(agrsBuilder::region);
-        return agrsBuilder.build();
+        return BucketExistsArgs.builder()
+                .bucket(bucketName)
+                .region(region)
+                .build();
     }
 
     public static MakeBucketArgs buildMakeBucketRequest(String bucketName, String region) {
-        var agrsBuilder = MakeBucketArgs.builder()
-                .bucket(bucketName);
-        Optional.ofNullable(region).ifPresent(agrsBuilder::region);
-        return agrsBuilder.build();
+        return MakeBucketArgs.builder()
+                .bucket(bucketName)
+                .region(region)
+                .build();
     }
 }

@@ -1,7 +1,6 @@
 package world.evgereo.spring.minio.config;
 
 import io.minio.MinioClient;
-import java.util.Optional;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -23,11 +22,11 @@ public class MinioAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(MinioClient.class)
     public MinioClient minioClient(MinioProperties minioProperties) {
-        var minioClientBuilder = MinioClient.builder()
+        var minioClient = MinioClient.builder()
                 .endpoint(minioProperties.getUrl())
-                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey());
-        Optional.ofNullable(minioProperties.getRegion()).ifPresent(minioClientBuilder::region);
-        var minioClient = minioClientBuilder.build();
+                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
+                .region(minioProperties.getRegion())
+                .build();
 
         configureMinio(minioProperties, minioClient);
         return minioClient;

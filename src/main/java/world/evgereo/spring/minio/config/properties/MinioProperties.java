@@ -1,60 +1,67 @@
 package world.evgereo.spring.minio.config.properties;
 
+import static world.evgereo.spring.minio.constants.MessageConstants.BUCKET_NAME_SIZE_VALIDATION_MESSAGE;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.Duration;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@Validated
 @ConfigurationProperties(prefix = "spring.data.minio")
 public class MinioProperties {
 
     @NotBlank
-    private final String url;
+    private String url;
 
     @NotBlank
-    private final String accessKey;
+    private String accessKey;
 
     @NotBlank
-    private final String secretKey;
+    private String secretKey;
 
-    private final String region;
+    @NotBlank
+    private String region = "us-east-1";
 
-    private final Bucket bucket;
+    private Bucket bucket;
 
     /**
      * Unsupported
      */
-    private final Repositories repositories;
+    private Repositories repositories;
 
     @NotNull
-    private final Duration connectTimeout = Duration.ofSeconds(10);
+    private Duration connectTimeout = Duration.ofSeconds(10);
 
     @NotNull
-    private final Duration writeTimeout = Duration.ofSeconds(60);
+    private Duration writeTimeout = Duration.ofSeconds(60);
 
     @NotNull
-    private final Duration readTimeout = Duration.ofSeconds(30);
+    private Duration readTimeout = Duration.ofSeconds(30);
 
     @Getter
-    @AllArgsConstructor
+    @Setter
+    @Validated
     public static class Repositories {
 
-        private final boolean enabled = false;
+        private boolean enabled = false;
     }
 
     @Getter
-    @AllArgsConstructor
+    @Setter
+    @Validated
     public static class Bucket {
 
         @NotBlank
-        @Size(min = 3)
-        private final String name;
+        @Size(min = 3, message = BUCKET_NAME_SIZE_VALIDATION_MESSAGE)
+        private String name;
 
-        private final boolean create = false;
+        private boolean create = false;
     }
 }
