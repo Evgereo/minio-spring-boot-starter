@@ -1,0 +1,60 @@
+{
+  "properties": [
+    {
+      "name": "spring.data.minio.url",
+      "type": "java.lang.String",
+      "description": "Minio server url."
+    },
+    {
+      "name": "spring.data.minio.access-key",
+      "type": "java.lang.String",
+      "description": "Access key (user) for client."
+    },
+    {
+      "name": "spring.data.minio.secret-key",
+      "type": "java.lang.String",
+      "description": "Secret key (password) for client."
+    },
+    {
+      "name": "spring.data.minio.region",
+      "type": "java.lang.String",
+      "description": "Client region.",
+      "defaultValue": "us-east-1"
+    },
+    {
+      "name": "spring.data.minio.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "Client connection timeout in seconds.",
+      "defaultValue": "10s"
+    },
+    {
+      "name": "spring.data.minio.write-timeout",
+      "type": "java.time.Duration",
+      "description": "Client read timeout in seconds.",
+      "defaultValue": "60s"
+    },
+    {
+      "name": "spring.data.minio.read-timeout",
+      "type": "java.time.Duration",
+      "description": "Client read timeout in seconds.",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "spring.data.minio.bucket.name",
+      "type": "java.lang.String",
+      "description": "Bucket name."
+    },
+    {
+      "name": "spring.data.minio.bucket.create",
+      "type": "java.lang.Boolean",
+      "description": "Indicates the need to create a bucket.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.data.minio.repositories.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Unsupported.",
+      "defaultValue": "false"
+    }
+  ]
+}
